@@ -52,3 +52,23 @@ function showdata(){
 }
 
 showdata();
+
+
+document.getElementById("input").addEventListener("keydown", (e)=>{
+    if(e.key == "Enter"){
+        clickBtn();
+    }
+})
+
+
+document.getElementById("clearAll").addEventListener("click", (e)=>{
+    if(listContainer.children.length === 0){
+        alert("Not any task for clean");
+        return;
+    }
+
+    if(confirm("All Task will be clean")){
+        listContainer.innerHTML = "";
+        savedata();
+    }
+})
