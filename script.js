@@ -45,13 +45,15 @@ listContainer.addEventListener("click" ,(e)=>{
 
 function savedata(){
     localStorage.setItem("data", listContainer.innerHTML);
+    taskCounting();
 }
 
 function showdata(){
-    listContainer.innerHTML = localStorage.getItem("data")
+    listContainer.innerHTML = localStorage.getItem("data");
 }
 
-showdata();
+
+
 
 
 document.getElementById("input").addEventListener("keydown", (e)=>{
@@ -59,6 +61,7 @@ document.getElementById("input").addEventListener("keydown", (e)=>{
         clickBtn();
     }
 })
+
 
 
 document.getElementById("clearAll").addEventListener("click", (e)=>{
@@ -71,4 +74,30 @@ document.getElementById("clearAll").addEventListener("click", (e)=>{
         listContainer.innerHTML = "";
         savedata();
     }
+})
+
+
+function taskCounting(){
+    let totalPending = listContainer.querySelectorAll("li:not(.checked)").length;
+
+    document.querySelector("#taskCount").innerHTML = totalPending === 0 ? "No Task Pending" :   `${totalPending} pending`
+
+}
+
+
+showdata();
+
+
+listContainer.addEventListener("dblclick", (e)=>{
+    if(e.target.tagName = "LI"){
+        let oldTax = e.target.firstChild.nodeValue.trim();
+
+        let newText = prompt("Edit Your Text:", oldTax);
+
+             if (newText !== null && newText.trim() !== "") {
+            e.target.firstChild.nodeValue = newText.trim();
+            savedata(); // localStorage update karo
+            updateCount(); // pending count refresh
+        }
+      }
 })
