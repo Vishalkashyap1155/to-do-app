@@ -101,3 +101,23 @@ listContainer.addEventListener("dblclick", (e)=>{
         }
       }
 })
+
+
+const filterButtons = document.querySelectorAll('.filters button');
+
+filterButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter; // all, active, completed
+
+        const tasks = listContainer.querySelectorAll('li');
+        tasks.forEach((task) => {
+            if (filter === 'all') {
+                task.style.display = '';
+            } else if (filter === 'active') {
+                task.style.display = task.classList.contains('checked') ? 'none' : '';
+            } else if (filter === 'completed') {
+                task.style.display = task.classList.contains('checked') ? '' : 'none';
+            }
+        });
+    });
+});
